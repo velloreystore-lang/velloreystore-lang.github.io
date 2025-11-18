@@ -134,7 +134,16 @@ main.center-vertical {
   color: #a0a8b8;
   margin-bottom: 10px;
 }
+.card a {
+  text-decoration: none; /* removes underline */
+  color: inherit;        /* keeps the text color same as card text */
+  transition: color 0.3s; /* optional, for hover effect */
+}
 
+.card a:hover {
+  color: var(--accent);  /* optional hover color */
+  text-decoration: none; /* ensures underline stays gone on hover */
+}
 /* =========================
    Buttons
 ========================= */
@@ -338,4 +347,5 @@ form textarea:focus {
   box-shadow: 0 0 5px rgba(30,78,140,0.5);
   outline: none;
 }
+
 
