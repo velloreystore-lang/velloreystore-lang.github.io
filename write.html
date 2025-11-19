@@ -26,7 +26,7 @@
   <main class="center-vertical">
     <h1>Write Article</h1>
     <p style="color:#ccc;">You can post 1 article/day</p>
-    <form>
+    <form id="submitArticleForm">
       <label for="title">Title</label>
       <input type="text" id="title" placeholder="Article Title" required>
 
@@ -41,6 +41,7 @@
 
       <button type="submit" class="btn">Submit Article</button>
     </form>
+
   </main>
 
   <!-- Footer -->
@@ -48,6 +49,8 @@
     <p>&copy; 2025 Vellorey Media • All rights reserved</p>
   </footer>
 
-  <script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script type="module" src="index.js"></script>
+
 </body>
 </html>

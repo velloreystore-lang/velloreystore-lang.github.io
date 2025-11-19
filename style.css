@@ -348,3 +348,9 @@ form textarea:focus {
   box-shadow: 0 0 5px rgba(30,78,140,0.5);
   outline: none;
 }
+a{
+  text-decoration: none;
+}
+a:hover{
+  color: #1e4e8c;
+}
