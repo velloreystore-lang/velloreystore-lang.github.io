@@ -1,89 +1,90 @@
-/* =========================
-   Supabase Auth & Article Forms
-========================= */
+// =========================
+// Main JS: Forms, Navbar, UI
+// =========================
 import * as sb from './supabase-helpers.js';
+import confetti from 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
   // -------------------
-  // SIGNUP FORM
+  // Navbar Toggle (mobile)
   // -------------------
-    const signupForm = document.querySelector('#signupForm');
-const signupFooter = document.querySelector('#signupFooter');
+  const menuToggle = document.getElementById('menu-toggle');
+  const navUl = document.querySelector('nav ul');
+  if (menuToggle && navUl) {
+    menuToggle.addEventListener('click', () => navUl.classList.toggle('active'));
+  }
 
-if (signupForm) {
-  signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    signupFooter.textContent = 'Processing...'; // show temporary status
+  // -------------------
+  // Signup Form
+  // -------------------
+  const signupForm = document.querySelector('#signupForm');
+  const signupFooter = document.querySelector('#signupFooter');
+  if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      signupFooter.textContent = 'Processing...';
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const username = e.target.name.value;
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value;
+      const confirm = e.target.confirm.value;
+      const username = e.target.name.value.trim();
 
-    try {
-      const { error } = await sb.signUp(email, password, username);
-      if (error) {
-        // Friendly messages
-        if (error.message.includes('users_email_key')) {
-          signupFooter.textContent = '⚠ Email already in use.';
-        } else if (error.message.includes('users_username_key')) {
-          signupFooter.textContent = '⚠ Username unavailable.';
-        } else {
-          signupFooter.textContent = '⚠ ' + error.message;
-        }
+      if (password !== confirm) {
+        signupFooter.textContent = '⚠ Passwords do not match';
         return;
       }
 
-      // Success message with confetti
-      signupFooter.innerHTML = '✅ Signup successful! 🎉';
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      try {
+        const { error } = await sb.signUp(email, password, username);
+        if (error) {
+          if (error.message.includes('users_email_key')) signupFooter.textContent = '⚠ Email already in use';
+          else if (error.message.includes('users_username_key')) signupFooter.textContent = '⚠ Username unavailable';
+          else signupFooter.textContent = '⚠ ' + error.message;
+          return;
+        }
 
-      setTimeout(() => {
-        window.location.href = 'index.html'; // redirect home
-      }, 2000);
+        signupFooter.innerHTML = '✅ Signup successful! 🎉';
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
-    } catch (err) {
-      signupFooter.textContent = '⚠ ' + err.message;
-    }
-  });
-}
+        setTimeout(() => window.location.href = 'index.html', 2000);
 
-
+      } catch (err) {
+        signupFooter.textContent = '⚠ ' + err.message;
+      }
+    });
+  }
 
   // -------------------
-  // LOGIN FORM
+  // Login Form
   // -------------------
   const loginForm = document.querySelector('#loginForm');
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const email = e.target.email.value;
+      const email = e.target.email.value.trim();
       const password = e.target.password.value;
 
       try {
-      const { error } = await sb.login(email, password);
-      if (error) throw error;
-
-      // Redirect immediately on success
-      window.location.href = 'index.html'; // homepage URL
-
+        const { error } = await sb.login(email, password);
+        if (error) throw error;
+        window.location.href = 'index.html';
       } catch (err) {
-      alert(err.message);
-     }
+        alert(err.message);
+      }
     });
   }
 
-
   // -------------------
-  // WRITE ARTICLE FORM
+  // Write Article Form
   // -------------------
   const writeForm = document.querySelector('#submitArticleForm');
   if (writeForm) {
     writeForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const title = writeForm.querySelector('#title').value;
-      const content = writeForm.querySelector('#content').value;
+      const title = writeForm.querySelector('#title').value.trim();
+      const content = writeForm.querySelector('#content').value.trim();
       const cover_image = writeForm.querySelector('#cover')?.value || '';
 
       try {
@@ -98,34 +99,20 @@ if (signupForm) {
   }
 
   // -------------------
-  // Navbar Toggle
+  // Password Toggle
   // -------------------
-  const menuToggle = document.getElementById('menu-toggle');
-  const navUl = document.querySelector('nav ul');
-  if (menuToggle && navUl) {
-    menuToggle.addEventListener('click', () => {
-      navUl.classList.toggle('active');
+  const toggleBtn = document.querySelector('.toggle-password');
+  const pwdInput = document.getElementById('password');
+  if (toggleBtn && pwdInput) {
+    toggleBtn.addEventListener('click', () => {
+      pwdInput.type = pwdInput.type === 'password' ? 'text' : 'password';
     });
   }
 
   // -------------------
-  // Smooth Scroll for anchor links
+  // Card hover effect
   // -------------------
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // -------------------
-  // Basic UI Interactions (Cards)
-  // -------------------
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
+  document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('mouseenter', () => {
       card.style.boxShadow = '0 6px 15px rgba(0,0,0,0.15)';
       card.style.transform = 'translateY(-5px)';
@@ -137,15 +124,13 @@ if (signupForm) {
   });
 
   // -------------------
-  // Toggle Password Visibility
+  // Smooth scroll
   // -------------------
-  const toggleBtn = document.querySelector('.toggle-password');
-  const pwdInput = document.getElementById('password');
-  if (toggleBtn && pwdInput) {
-    toggleBtn.addEventListener('click', () => {
-      pwdInput.type = pwdInput.type === 'password' ? 'text' : 'password';
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
-  }
-
+  });
 });
-

@@ -1,8 +1,6 @@
-/* =========================
-   supabase-helpers.js
-========================= */
-
-// Import Supabase client
+// =========================
+// Supabase Helpers
+// =========================
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 // -------------------
@@ -16,8 +14,6 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // -------------------
 // Auth Functions
 // -------------------
-
-// SIGNUP
 export async function signUp(email, password, username) {
   const { data, error } = await supabase.auth.signUp({ email, password });
   if (error) return { data, error };
@@ -25,28 +21,24 @@ export async function signUp(email, password, username) {
   const user = data.user;
   if (!user) return { data, error: { message: 'User not found after signup' } };
 
-  // Insert into users table immediately
+  // Insert user details into 'users' table
   const { error: insertError } = await supabase
     .from('users')
     .insert([{ id: user.id, username, email, role: 'user' }]);
 
-  if (insertError) return { data, error: insertError };
-  return { data, error: null };
+  return { data, error: insertError };
 }
 
-// LOGIN
 export async function login(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   return { data, error };
 }
 
-// LOGOUT
 export async function logout() {
   const { error } = await supabase.auth.signOut();
   return { error };
 }
 
-// GET CURRENT USER
 export async function getCurrentUser() {
   const { data } = await supabase.auth.getUser();
   return data?.user ?? null;
@@ -55,8 +47,6 @@ export async function getCurrentUser() {
 // -------------------
 // Article Functions
 // -------------------
-
-// SUBMIT PENDING ARTICLE
 export async function submitPendingArticle({ title, content, cover_image }) {
   const { data: userData } = await supabase.auth.getUser();
   const user = userData?.user;
@@ -77,8 +67,6 @@ export async function submitPendingArticle({ title, content, cover_image }) {
 // -------------------
 // Admin Functions (Optional)
 // -------------------
-
-// FETCH PENDING ARTICLES
 export async function fetchPendingArticles() {
   const { data, error } = await supabase
     .from('pending_articles')
@@ -87,7 +75,6 @@ export async function fetchPendingArticles() {
   return { data, error };
 }
 
-// APPROVE PENDING ARTICLE (needs Supabase function)
 export async function approvePendingArticle(pendingId) {
   const { data, error } = await supabase.rpc('approve_pending_article', { p_pending_id: pendingId });
   return { data, error };
