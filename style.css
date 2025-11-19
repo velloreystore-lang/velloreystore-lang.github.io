@@ -316,3 +316,138 @@ a:hover {
     font-size: 20px;
   }
 }
+/* =========================
+   Header & Navbar
+========================= */
+header {
+  background: var(--primary);
+  color: var(--text);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo image + text */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Nav links */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+nav ul li a, nav ul li button {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+nav ul li a:hover, nav ul li button:hover {
+  color: var(--accent);
+}
+
+/* Google button */
+#googleBtn {
+  background-color: #DB4437; /* Google red */
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+#googleBtn:hover {
+  background-color: #c33d2e;
+}
+
+/* Profile section */
+#userProfile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#userProfile span {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.profile-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Logout button */
+#logoutBtn {
+  background-color: var(--accent);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+#logoutBtn:hover {
+  background-color: var(--primary);
+}
+
+/* Hamburger menu toggle */
+#menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* =========================
+   Responsive Header
+========================= */
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--primary);
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 220px;
+    padding: 1rem;
+    border-radius: 0 0 0 10px;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  #menu-toggle {
+    display: block;
+  }
+}
