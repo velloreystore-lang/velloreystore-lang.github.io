@@ -1,81 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vellorey Blog</title>
-  <meta name="description" content="Vellorey Blog - Latest articles on tech, lifestyle, and more.">
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Vellorey Blog - Latest articles on tech, lifestyle, and more." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/jpeg" href="Vellorey logo.jpg" />
 </head>
 <body>
 
-<!-- Header -->
+  <a class="visually-hidden" href="#main-content">Skip to content</a>
+
+  <!-- Header -->
   <header>
-  <!-- Logo + Favicon -->
-    <div class="logo">
-    <img src="Vellorey logo.jpg" alt="Vellorey Logo" class="logo-img">
-    Vellorey
-   </div>
+    <div class="header-left">
+      <div class="logo">
+        <img src="Vellorey logo.jpg" alt="Vellorey logo" /> Vellorey
+      </div>
 
-  <!-- Navigation -->
-    <nav>
-     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
+      <!-- main nav (left) -->
+      <nav aria-label="Primary">
+        <ul id="primary-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="write.html">Write Article</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
 
-      <!-- Standard Login/Signup buttons -->
-      <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
-      <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
+    <!-- right side: auth / profile -->
+    <div class="profile-container" id="auth-area">
+      <!-- login/signup buttons (shown when NOT logged-in) -->
+      <div id="auth-buttons">
+        <a href="login.html" class="btn" id="login-btn">Login</a>
+        <a href="signup.html" class="btn" id="signup-btn">Signup</a>
+      </div>
 
-      <!-- Google OAuth login button -->
-      <li id="googleAuth">
-        <button class="btn" id="googleBtn">Login with Google</button>
-      </li>
+      <!-- profile (hidden until logged in) -->
+      <div id="profile-block" style="display:none; position:relative;">
+        <button id="profile-toggle" aria-haspopup="true" aria-expanded="false" class="profile-button" title="Open profile">
+          <img id="profile-avatar" src="" alt="Profile avatar" style="display:inline-block; vertical-align:middle;">
+          <span id="profile-name" class="profile-name"></span>
+        </button>
 
-      <!-- User Profile (hidden by default, shown after login) -->
-        <li id="userProfile" style="display:none;">
-        <img id="profileImg" src="default-profile.png" alt="Profile" class="profile-img">
-        <span id="profileName"></span>
-        <button id="logoutBtn" class="btn">Logout</button>
-       </li>
-      </ul>
-      <button id="menu-toggle">☰</button>
-    </nav>
+        <div id="profile-dropdown" class="profile-dropdown" role="menu" aria-hidden="true">
+          <button id="view-profile" role="menuitem">View Profile</button>
+          <button id="logout-btn" role="menuitem">Logout</button>
+        </div>
+      </div>
+
+      <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+    </div>
   </header>
 
+  <!-- Google Sign-in Popup -->
+  <div id="googlePrompt" role="dialog" aria-modal="true" aria-labelledby="googlePromptTitle" style="display:none;">
+    <button class="close-btn" id="google-close" aria-label="Close">✖</button>
+    <p id="googlePromptTitle">Continue with Google?</p>
+
+    <!-- placeholder avatar preview (will show when user selects a google account) -->
+    <img id="google-avatar-preview" class="avatar" src="" alt="" style="display:none;">
+
+    <button id="googleSignInBtn" type="button">Sign in with Google</button>
+  </div>
+
   <!-- Main Content -->
-  <main id="blog-list">
-    <!-- Blog Card 1 -->
-    <div class="card">
-      <img src="https://via.placeholder.com/800x400" alt="Article Cover">
-      <div class="card-content">
-        <h2><a href="article.html">Understanding JavaScript Basics</a></h2>
-        <p class="meta">Oct 18, 2025 • 5 min read</p>
-        <p>Learn the fundamentals of JavaScript, the programming language of the web.</p>
+  <main id="main-content" aria-live="polite">
+    <main id="blog-list">
+      <div class="card">
+        <img src="https://via.placeholder.com/800x400" alt="Article Cover">
+        <div class="card-content">
+          <h2><a href="article.html">Understanding JavaScript Basics</a></h2>
+          <p class="meta">Oct 18, 2025 • 5 min read</p>
+          <p>Learn the fundamentals of JavaScript, the programming language of the web.</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Blog Card 2 -->
-    <div class="card">
-      <img src="https://via.placeholder.com/800x400" alt="Article Cover">
-      <div class="card-content">
-        <h2><a href="article.html">CSS Tips for Beginners</a></h2>
-        <p class="meta">Oct 15, 2025 • 4 min read</p>
-        <p>Discover essential CSS techniques to style your websites beautifully.</p>
+      <div class="card">
+        <img src="https://via.placeholder.com/800x400" alt="Article Cover">
+        <div class="card-content">
+          <h2><a href="article.html">CSS Tips for Beginners</a></h2>
+          <p class="meta">Oct 15, 2025 • 4 min read</p>
+          <p>Discover essential CSS techniques to style your websites beautifully.</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Blog Card 3 -->
-    <div class="card">
-      <img src="https://via.placeholder.com/800x400" alt="Article Cover">
-      <div class="card-content">
-        <h2><a href="article.html">Responsive Web Design Guide</a></h2>
-        <p class="meta">Oct 10, 2025 • 6 min read</p>
-        <p>Learn how to make your websites look great on any device with responsive design.</p>
+      <div class="card">
+        <img src="https://via.placeholder.com/800x400" alt="Article Cover">
+        <div class="card-content">
+          <h2><a href="article.html">Responsive Web Design Guide</a></h2>
+          <p class="meta">Oct 10, 2025 • 6 min read</p>
+          <p>Learn how to make your websites look great on any device with responsive design.</p>
+        </div>
       </div>
-    </div>
+    </main>
   </main>
 
   <!-- Footer -->
@@ -85,6 +105,5 @@
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script type="module" src="index.js"></script>
-
 </body>
 </html>

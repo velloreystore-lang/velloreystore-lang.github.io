@@ -4,49 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Vellorey Blog</title>
-  <meta name="description" content="Login to Vellorey Blog to access and write articles.">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="Vellorey logo.jpg">
 </head>
 <body>
 
-<!-- Header -->
-<header>
-  <!-- Logo + Favicon -->
-  <div class="logo">
-    <img src="Vellorey logo.jpg" alt="Vellorey Logo" class="logo-img">
-    Vellorey
-  </div>
-
-  <!-- Navigation -->
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="Vellorey logo.jpg" alt="Logo"> Vellorey
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-
-        <!-- Standard Login/Signup buttons -->
-        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
-        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
-
-       <!-- Google OAuth login button -->
-       <li id="googleAuth">
-          <button class="btn" id="googleBtn">Login with Google</button>
-        </li>
-
-       <!-- User Profile (hidden by default, shown after login) -->
-       <li id="userProfile" style="display:none;">
-         <img id="profileImg" src="default-profile.png" alt="Profile" class="profile-img">
-         <span id="profileName"></span>
-         <button id="logoutBtn" class="btn">Logout</button>
-        </li>
+        <li><a href="login.html" class="btn">Login</a></li>
+        <li><a href="signup.html" class="btn">Signup</a></li>
       </ul>
       <button id="menu-toggle">☰</button>
     </nav>
   </header>
 
-
-  <!-- Login Form -->
   <main class="center-vertical">
     <h1>Login</h1>
     <form id="loginForm">
@@ -62,13 +39,17 @@
         Don’t have an account? <a href="signup.html">Signup</a>
       </p>
     </form>
+
+    <!-- Google login for this page -->
+    <div class="google-btn-container">
+      <button id="googleSignInBtn">Continue with Google</button>
+    </div>
   </main>
 
   <footer>
     <p>&copy; 2025 Vellorey Media • All rights reserved</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script type="module" src="index.js"></script>
 </body>
 </html>

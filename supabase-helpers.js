@@ -1,6 +1,7 @@
 /* =========================
    supabase-helpers.js
 ========================= */
+
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 const SUPABASE_URL = 'https://lrspllpqnfzqvakkkjuq.supabase.co';
@@ -12,7 +13,7 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // Auth Functions
 // -------------------
 
-// SIGNUP with email/password
+// SIGNUP
 export async function signUp(email, password, username) {
   const { data, error } = await supabase.auth.signUp({ email, password });
   if (error) return { data, error };
@@ -20,30 +21,28 @@ export async function signUp(email, password, username) {
   const user = data.user;
   if (!user) return { data, error: { message: 'User not found after signup' } };
 
-  // Insert username into users table
+  // Insert into users table immediately
   const { error: insertError } = await supabase
     .from('users')
     .insert([{ id: user.id, username, email, role: 'user' }]);
-  
+
   if (insertError) return { data, error: insertError };
   return { data, error: null };
 }
 
-// LOGIN with email/password
+// LOGIN
 export async function login(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   return { data, error };
 }
 
-// LOGIN / SIGNUP with Google
+// GOOGLE SIGN-IN
 export async function signInWithGoogle() {
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: {
-      redirectTo: window.location.origin + '/index.html',
-    }
+    options: { redirectTo: window.location.origin }
   });
-  return { error };
+  return { data, error };
 }
 
 // LOGOUT
@@ -52,19 +51,10 @@ export async function logout() {
   return { error };
 }
 
-// GET CURRENT USER (including Google profile)
+// GET CURRENT USER
 export async function getCurrentUser() {
   const { data } = await supabase.auth.getUser();
-  if (!data?.user) return null;
-
-  // Fetch user profile from 'users' table
-  const { data: profileData } = await supabase
-    .from('users')
-    .select('*')
-    .eq('id', data.user.id)
-    .single();
-  
-  return { ...data.user, profile: profileData || {} };
+  return data?.user ?? null;
 }
 
 // -------------------
@@ -72,11 +62,12 @@ export async function getCurrentUser() {
 // -------------------
 
 export async function submitPendingArticle({ title, content, cover_image }) {
-  const userData = await getCurrentUser();
-  if (!userData) return { error: { message: 'Not logged in' } };
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData?.user;
+  if (!user) return { error: { message: 'Not logged in' } };
 
   const payload = {
-    author_id: userData.id,
+    author_id: user.id,
     title,
     content,
     cover_image,
