@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Vellorey</title>
+  <link rel="stylesheet" href="admin.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Admin Dashboard</h1>
+    <div class="timeframe-select">
+      <button data-period="thisMonth">This Month</button>
+      <button data-period="lastMonth">Last Month</button>
+      <button data-period="allTime">All Time</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Stats Cards -->
+    <section class="stats-cards">
+      <div class="card" id="totalUsers">Total Users: 0</div>
+      <div class="card" id="activeUsers">Active Users: 0</div>
+      <div class="card" id="totalArticles">Total Articles: 0</div>
+      <div class="card" id="upvotes">Upvotes: 0</div>
+      <div class="card" id="downvotes">Downvotes: 0</div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts">
+        <h2>Signups</h2>
+        <div class="chart-container">
+            <canvas id="signupChart"></canvas>
+        </div><br>
+        <h2>Upvotes</h2>
+        <div class="chart-container">
+            <canvas id="upvoteChart"></canvas>
+        </div>
+    </section>
+
+
+    <!-- Articles Table -->
+    <section class="articles-table">
+      <h2>Articles</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th>Upvotes</th>
+            <th>Downvotes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="articlesBody">
+          <!-- Filled dynamically -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Admin JS -->
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
+

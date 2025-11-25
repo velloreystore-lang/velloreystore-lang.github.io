@@ -1,109 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vellorey Blog</title>
-  <meta name="description" content="Vellorey Blog - Latest articles on tech, lifestyle, and more." />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/jpeg" href="Vellorey logo.jpg" />
+  <meta name="description" content="Vellorey Blog - Latest articles on tech, lifestyle, and more.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="vellorey.jpg" type="image/png">
+
 </head>
 <body>
 
-  <a class="visually-hidden" href="#main-content">Skip to content</a>
-
-  <!-- Header -->
+<!-- Header -->
   <header>
-    <div class="header-left">
-      <div class="logo">
-        <img src="Vellorey logo.jpg" alt="Vellorey logo" /> Vellorey
-      </div>
+  <!-- Logo + Favicon -->
+    <div class="logo">
+    <img src="vellorey.jpg" alt="Vellorey Logo" class="logo-img">
+    Vellorey
+   </div>
 
-      <!-- main nav (left) -->
-      <nav aria-label="Primary">
-        <ul id="primary-nav">
+      <!-- Navigation -->
+    <nav class="relative flex items-center justify-between px-4 py-2">
+      <div class="flex items-center gap-4">
+        <button id="menu-toggle" class="btn md:hidden">☰</button>
+       <ul class="nav-links flex gap-4">
           <li><a href="index.html">Home</a></li>
-          <li><a href="write.html">Write Article</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="write.html">Write an Article</a></li>
+          
         </ul>
-      </nav>
-    </div>
-
-    <!-- right side: auth / profile -->
-    <div class="profile-container" id="auth-area">
-      <!-- login/signup buttons (shown when NOT logged-in) -->
-      <div id="auth-buttons">
-        <a href="login.html" class="btn" id="login-btn">Login</a>
-        <a href="signup.html" class="btn" id="signup-btn">Signup</a>
       </div>
 
-      <!-- profile (hidden until logged in) -->
-      <div id="profile-block" style="display:none; position:relative;">
-        <button id="profile-toggle" aria-haspopup="true" aria-expanded="false" class="profile-button" title="Open profile">
-          <img id="profile-avatar" src="" alt="Profile avatar" style="display:inline-block; vertical-align:middle;">
-          <span id="profile-name" class="profile-name"></span>
-        </button>
+      <div class="flex items-center gap-2">
+        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
+        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
 
-        <div id="profile-dropdown" class="profile-dropdown" role="menu" aria-hidden="true">
-          <button id="view-profile" role="menuitem">View Profile</button>
-          <button id="logout-btn" role="menuitem">Logout</button>
-        </div>
-      </div>
+   <!-- User Profile (clickable) -->
+<div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
+  <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+  <span id="profileName">Guest</span>
 
-      <button id="menu-toggle" aria-label="Toggle menu">☰</button>
-    </div>
+  <!-- Dropdown Panel -->
+  <div id="profileDropdown" class="profile-dropdown hidden">
+    <button id="logoutBtn">Logout</button>
+  </div>
+</div>
+ </nav>
+    
   </header>
 
-  <!-- Google Sign-in Popup -->
-  <div id="googlePrompt" role="dialog" aria-modal="true" aria-labelledby="googlePromptTitle" style="display:none;">
-    <button class="close-btn" id="google-close" aria-label="Close">✖</button>
-    <p id="googlePromptTitle">Continue with Google?</p>
-
-    <!-- placeholder avatar preview (will show when user selects a google account) -->
-    <img id="google-avatar-preview" class="avatar" src="" alt="" style="display:none;">
-
-    <button id="googleSignInBtn" type="button">Sign in with Google</button>
-  </div>
-
   <!-- Main Content -->
-  <main id="main-content" aria-live="polite">
-    <main id="blog-list">
-      <div class="card">
-        <img src="https://via.placeholder.com/800x400" alt="Article Cover">
-        <div class="card-content">
-          <h2><a href="article.html">Understanding JavaScript Basics</a></h2>
-          <p class="meta">Oct 18, 2025 • 5 min read</p>
-          <p>Learn the fundamentals of JavaScript, the programming language of the web.</p>
-        </div>
+  <main id="blog-list">
+    <!-- Blog Card 1 -->
+    <div class="card">
+      <img src="article1/digital1.jpeg" alt="Digital marketing image 1" style="width:100%;height: auto; border-radius:10px; display:block;">
+      <div class="card-content"> 
+        <h2><a href="article1/digital.html">How to Start Digital Marketing: SIMPLE GUIDE FOR BEGINNER</a></h2>
+        <p class="meta">Published: Oct 18, 2025 • 6 min read</p>
+        <p>A simple step-by-step guide for beginners on how to start digital marketing from home, grow a business, and avoid common mistakes.</p>
       </div>
+    </div>
 
-      <div class="card">
-        <img src="https://via.placeholder.com/800x400" alt="Article Cover">
-        <div class="card-content">
-          <h2><a href="article.html">CSS Tips for Beginners</a></h2>
-          <p class="meta">Oct 15, 2025 • 4 min read</p>
-          <p>Discover essential CSS techniques to style your websites beautifully.</p>
-        </div>
+    <!-- Blog Card 2 -->
+    <div class="card">
+      <img src="article2/bless1.jpeg" alt="Happy Monday Blessings Image 1" style="width:100%;height: 22rem; border-radius:10px; display:block;">
+      <div class="card-content">
+        <h2><a href="article2/bless.html">150+ Positive Monday Blessings, Messages, and Quotes 2025</a></h2>
+        <p class="meta" style="color:#666; margin:0 0 1rem 0;">Published: Oct 18, 2025 • 10 min read</p>
+        <p>Start your week with positivity and inspiration. Discover 150+ Happy Monday blessings, prayers, quotes, and beautiful images.</p>
       </div>
+    </div>
 
-      <div class="card">
-        <img src="https://via.placeholder.com/800x400" alt="Article Cover">
-        <div class="card-content">
-          <h2><a href="article.html">Responsive Web Design Guide</a></h2>
-          <p class="meta">Oct 10, 2025 • 6 min read</p>
-          <p>Learn how to make your websites look great on any device with responsive design.</p>
-        </div>
+    <!-- Blog Card 3 
+    <div class="card">
+      <img src="https://via.placeholder.com/800x400" alt="Article Cover">
+      <div class="card-content">
+        <h2><a href="article.html">Responsive Web Design Guide</a></h2>
+        <p class="meta">Oct 10, 2025 • 6 min read</p>
+        <p>Learn how to make your websites look great on any device with responsive design.</p>
       </div>
-    </main>
+    </div>-->
   </main>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Vellorey Media • All rights reserved</p>
-  </footer>
+  <footer class="footer">
+  <div class="footer-links">
+    <a href="/policies/about.html" target="_blank">About Us</a>
+    <a href="/policies/privacy.html" target="_blank">Privacy Policy</a>
+    <a href="/policies/disclaimer.html" target="_blank">Disclaimer</a>
+    <a href="/policies/terms.html" target="_blank">Terms & Conditions</a>
+  </div>
+  <p class="footer-copy">© 2025 Vellorey. All rights reserved.</p>
+</footer>
+
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script type="module" src="index.js"></script>
-</body>
+  </body>
 </html>

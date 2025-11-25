@@ -4,57 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Write Article - Vellorey Blog</title>
+  <meta name="description" content="Write and submit new articles to Vellorey Blog.">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/jpeg" href="Vellorey logo.jpg">
+  <link rel="icon" href="vellorey.jpg" type="image/png">
 </head>
 <body>
 
-  <!-- Header -->
+<!-- Header -->
   <header>
+   <!-- Logo + Favicon -->
     <div class="logo">
-      <img src="Vellorey logo.jpg" alt="Logo"> Vellorey
+      <img src="vellorey.jpg" alt="Vellorey Logo" class="logo-img">
+     Vellorey
     </div>
+
+    <!-- Navigation -->
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="login.html" class="btn">Login</a></li>
-        <li><a href="signup.html" class="btn">Signup</a></li>
-        <li><a href="write.html" class="btn">Write Article</a></li>
-      </ul>
-      <button id="menu-toggle">☰</button>
-    </nav>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">About</a></li>
+       <li><a href="#">Contact</a></li>
+
+       <!-- Standard Login/Signup buttons -->
+        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
+        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
+
+        
+
+        <!-- User Profile (clickable) -->
+<div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
+  <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+  <span id="profileName">Guest</span>
+
+  <!-- Dropdown Panel -->
+  <div id="profileDropdown" class="profile-dropdown hidden">
+    <button id="logoutBtn">Logout</button>
+  </div>
+</div>
+     <button id="menu-toggle">☰</button>
+   </nav>
   </header>
 
-  <!-- Google Sign-in Popup -->
-  <div id="googlePrompt">
-    <button class="close-btn">✖</button>
-    <p>Continue with Google?</p>
-    <button id="googleSignInBtn">Sign in with Google</button>
-  </div>
-
   <main class="center-vertical">
-    <h1>Write Article</h1>
-    <p style="color:#ccc;">You can post 1 article/day</p>
-    <form id="submitArticleForm">
-      <label for="title">Title</label>
-      <input type="text" id="title" placeholder="Article Title" required>
+    
+    
+      <form id="submitArticleForm" class="form-card">
+        <h2>Write a New Article</h2>
+        <p style="color:#ccc;">You can post 1 article/day</p>
 
-      <label for="tags">Tags</label>
-      <input type="text" id="tags" placeholder="Comma-separated tags">
+        <!-- TITLE -->
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" required>
+        <small id="titleError" class="error"></small>
 
-      <label for="cover">Cover Image</label>
-      <input type="file" id="cover" accept="image/*">
+        <!-- TAGS -->
+        <label for="tags">Tags</label>
+        <input type="text" id="tags" name="tags" placeholder="Comma-separated tags">
 
-      <label for="content">Content</label>
-      <textarea id="content" rows="10" placeholder="Write your article here..." required></textarea>
+        <!-- COVER -->
+        <label for="cover">Cover Image</label>
+        <input type="file" id="cover" name="cover" accept="image/*">
+        <small id="coverError" class="error"></small>
 
-      <button type="submit" class="btn">Submit Article</button>
-    </form>
+        <!-- CONTENT -->
+        <label for="content">Content</label>
+        <textarea id="content" name="content" rows="10" required></textarea>
+        
+
+        <!-- Word Counter -->
+        
+        <small id="contentError" class="error"></small>
+        <div class="word-counter">
+            <span id="wordCount">0</span> / 2000 words
+            <span id="wordSuccess" style="display:none"></span>
+        </div>
+
+        <!-- Success Text -->
+        <small id="wordSuccess" class="success-msg"></small>
+
+        <!--<button type="submit" class="btn">Submit for Review</button>-->
+        <p><i>This Feature is coming soon....</i></p>
+        
+
+
   </main>
 
-  <footer>
-    <p>&copy; 2025 Vellorey Media • All rights reserved</p>
-  </footer>
+  <footer class="footer">
+  <div class="footer-links">
+    <a href="/policies/about.html" target="_blank">About Us</a>
+    <a href="/policies/privacy.html" target="_blank">Privacy Policy</a>
+    <a href="/policies/disclaimer.html" target="_blank">Disclaimer</a>
+    <a href="/policies/terms.html" target="_blank">Terms & Conditions</a>
+  </div>
+  <p class="footer-copy">© 2025 Vellorey. All rights reserved.</p>
+</footer>
+
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script type="module" src="index.js"></script>

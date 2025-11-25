@@ -4,52 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Vellorey Blog</title>
+  <meta name="description" content="Login to Vellorey Blog to access and write articles.">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/jpeg" href="Vellorey logo.jpg">
+  <link rel="icon" href="vellorey.jpg" type="image/png">
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <img src="Vellorey logo.jpg" alt="Logo"> Vellorey
-    </div>
+<!-- Header -->
+<header>
+  <!-- Logo + Favicon -->
+  <div class="logo">
+    <img src="vellorey.jpg" alt="Vellorey Logo" class="logo-img">
+    Vellorey
+  </div>
+
+  <!-- Navigation -->
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="login.html" class="btn">Login</a></li>
-        <li><a href="signup.html" class="btn">Signup</a></li>
+        <li><a href="write.html">Write an Article</a></li>
+        <!-- Standard Login/Signup buttons -->
+        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
+        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
+
+       
+
+       <!-- User Profile (hidden by default, shown after login) -->
+       <li id="userProfile" style="display:none;">
+         <img id="profileImg" src="default-profile.png" alt="Profile" class="profile-img">
+         <span id="profileName"></span>
+         <button id="logoutBtn" class="btn">Logout</button>
+        </li>
       </ul>
       <button id="menu-toggle">☰</button>
     </nav>
   </header>
 
+
+  <!-- Login Form -->
   <main class="center-vertical">
-    <h1>Login</h1>
-    <form id="loginForm">
+    
+    <form id="loginForm" class="form-card">
+      <h2>Login</h2>
+
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="you@example.com" required>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
 
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="password" name="password" placeholder="Password" required />
+      <!-- Google OAuth button as a direct link -->
+      <a href="https://lrspllpqnfzqvakkkjuq.supabase.co/auth/v1/authorize?provider=google&redirect_to=http://localhost:5500/index.html" 
+          class="google-btn">
+        <img src="https://developers.google.com/identity/images/g-logo.png" 
+              alt="Google Logo" class="google-logo">
+        <span>Continue with Google</span>
+      </a>
 
+    
       <button type="submit" class="btn">Login</button>
-
-      <p class="form-footer">
-        Don’t have an account? <a href="signup.html">Signup</a>
-      </p>
-    </form>
-
-    <!-- Google login for this page -->
-    <div class="google-btn-container">
-      <button id="googleSignInBtn">Continue with Google</button>
-    </div>
+    </form>  
   </main>
 
-  <footer>
-    <p>&copy; 2025 Vellorey Media • All rights reserved</p>
-  </footer>
+  <footer class="footer">
+  <div class="footer-links">
+    <a href="/policies/about.html" target="_blank">About Us</a>
+    <a href="/policies/privacy.html" target="_blank">Privacy Policy</a>
+    <a href="/policies/disclaimer.html" target="_blank">Disclaimer</a>
+    <a href="/policies/terms.html" target="_blank">Terms & Conditions</a>
+  </div>
+  <p class="footer-copy">© 2025 Vellorey. All rights reserved.</p>
+</footer>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script type="module" src="index.js"></script>
 </body>
 </html>

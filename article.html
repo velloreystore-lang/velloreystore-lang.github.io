@@ -1,72 +1,124 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>155+ Monday Blessings, Quotes, Prayers, and Images to Inspire Your Week</title>
-  <meta name="description" content="A beginner's guide to understanding JavaScript basics on Vellorey Blog.">
+  <title>Article Title — Vellorey</title>
   <link rel="stylesheet" href="style.css">
-  <nav>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Contact</a></li>
-    <li><a href="login.html" class="btn">Login</a></li>
-    <li><a href="signup.html" class="btn">Signup</a></li>
-    <li><a href="write.html" class="btn">Write Article</a></li>
-  </ul>
-  <button id="menu-toggle">☰</button>
-</nav>
+  <link rel="icon" href="vellorey.jpg" type="image/png">
 
 </head>
 <body>
-
   <!-- Header -->
-  <header>
-    <div class="logo">Vellorey</div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <button id="menu-toggle">☰</button>
-    </nav>
+    <header>
+  <!-- Logo + Favicon -->
+    <div class="logo">
+    <img src="vellorey.jpg" alt="Vellorey Logo" class="logo-img">
+    Vellorey
+   </div>
+
+      <!-- Navigation -->
+    <nav class="relative flex items-center justify-between px-4 py-2">
+      <div class="flex items-center gap-4">
+        <button id="menu-toggle" class="btn md:hidden">☰</button>
+       <ul class="nav-links flex gap-4">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="write.html">Write an Article</a></li>
+        
+        </ul>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
+        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
+
+   <!-- User Profile (clickable) -->
+<div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
+  <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+  <span id="profileName">Guest</span>
+
+  <!-- Dropdown Panel -->
+  <div id="profileDropdown" class="profile-dropdown hidden">
+    <button id="logoutBtn">Logout</button>
+  </div>
+</div>
+ </nav>
+    
   </header>
 
-  <!-- Article Content -->
-  <main id="article-content" style="max-width:800px;margin:2rem auto;padding:0 1rem;">
-    <h1>Understanding JavaScript Basics</h1>
-    <p class="meta">Oct 18, 2025 • 5 min read</p>
-    <img src="https://via.placeholder.com/800x400" alt="Article Cover" style="width:100%;border-radius:10px;margin:1rem 0;">
-    
-    <p>JavaScript is a programming language that allows you to implement complex features on web pages...</p>
-    
-    <h2>Why Learn JavaScript?</h2>
-    <p>JavaScript allows you to make your website interactive and dynamic. It is the backbone of modern web development.</p>
+  <!-- Main Article -->
+  <main class="article-page">
+   <article>
+    <!-- Article Header -->
+    <h1 class="article-title">Sample Article Title Goes Here</h1>
+    <div class="article-meta">
+      <span>By <strong>Author Name</strong></span> |
+      <span>Published: Nov 25, 2025</span> |
+      <span>5 min read</span>
+    </div>
 
-    <h2>Basic Concepts</h2>
-    <ul>
-      <li>Variables and Data Types</li>
-      <li>Functions</li>
-      <li>DOM Manipulation</li>
-      <li>Events</li>
-    </ul>
+    <!-- Featured Image -->
+    <div class="article-featured">
+      <img src="https://via.placeholder.com/800x400" alt="Featured Image">
+    </div>
 
-    <p>By mastering these basics, you'll be ready to create your own web applications.</p>
+    <!-- Article Content -->
+    <div class="article-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac purus vel ex dictum fermentum.</p>
+      <h2>Section Heading 1</h2>
+      <p>More paragraph text goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <h3>Subheading Example</h3>
+      <p>Even more content. You can include images, lists, and code blocks.</p>
 
-    <a href="index.html" class="btn">Back to Blog</a>
+      <ul>
+        <li>First bullet point</li>
+        <li>Second bullet point</li>
+        <li>Third bullet point</li>
+      </ul>
+
+      <ol>
+        <li>First numbered item</li>
+        <li>Second numbered item</li>
+      </ol>
+
+      <p><img src="https://via.placeholder.com/600x300" alt="Inline Image"></p>
+
+      <h2>Conclusion</h2>
+      <p>Final paragraph wrapping up the article content. Lorem ipsum dolor sit amet.</p>
+    </div>
+
+    <!-- Categories -->
+    <div class="article-categories">
+      <span class="tag">Technology</span>
+      <span class="tag">Gaming</span>
+      <span class="tag">Reviews</span>
+    </div>
+
+    <!-- Author Box -->
+    <div class="author-box">
+      <img src="https://via.placeholder.com/55" alt="Author Avatar">
+      <div>
+        <div class="author-name">Author Name</div>
+        <div class="author-bio">Short bio about the author goes here. Loves tech and gaming content.</div>
+      </div>
+    </div>
+    </article>
   </main>
 
   <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Vellorey Media • All rights reserved</p>
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/policies/terms.html" target="_blank">Terms</a>
+      <a href="/policies/privacy.html" target="_blank">Privacy</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2025 Vellorey. All rights reserved.
+    </div>
   </footer>
 
   <script type="module" src="index.js"></script>
-
 </body>
 </html>

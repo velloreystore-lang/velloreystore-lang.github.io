@@ -1,0 +1,143 @@
+/* --- Basic Layout --- */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #121212;
+  color: #fff;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: #1f1f1f;
+  border-bottom: 1px solid #333;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.timeframe-select button {
+  background: #2c2c2c;
+  color: #fff;
+  border: none;
+  margin-left: 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.timeframe-select button:hover {
+  background: #3a3a3a;
+}
+
+/* --- Stats Cards Grid --- */
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px 30px;
+}
+
+.card {
+  background: #1f1f1f;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+/* --- Charts Grid --- */
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 30px;
+}
+
+.charts canvas {
+  background: #1f1f1f;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* --- Articles Table --- */
+.articles-table {
+  padding: 20px 30px;
+}
+
+.articles-table h2 {
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #1f1f1f;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+tbody tr:hover {
+  background: #2c2c2c;
+}
+
+button.action-btn {
+  background: #2c2c2c;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+button.action-btn:hover {
+  background: #3a3a3a;
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 768px) {
+  .stats-cards, .charts {
+    grid-template-columns: 1fr;
+  }
+}
+/* --- Charts Grid --- */
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 30px;
+}
+
+.chart-container {
+  background: #1f1f1f;
+  border-radius: 12px;
+  padding: 10px;
+  height: 250px; /* fixed height */
+}
+
+.charts canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
