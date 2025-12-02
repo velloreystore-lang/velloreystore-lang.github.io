@@ -11,33 +11,40 @@
 <body>
 
 <!-- Header -->
-<header>
+  <header>
   <!-- Logo + Favicon -->
-  <div class="logo">
+    <div class="logo">
     <img src="vellorey.jpg" alt="Vellorey Logo" class="logo-img">
     Vellorey
-  </div>
+   </div>
 
-  <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="write.html">Write an Article</a></li>
-        <!-- Standard Login/Signup buttons -->
+      <!-- Navigation -->
+    <nav class="relative flex items-center justify-between px-4 py-2">
+      <div class="flex items-center gap-4">
+        <button id="menu-toggle" class="btn md:hidden">☰</button>
+       <ul class="nav-links flex gap-4">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="write.html">Write an Article</a></li>
+          
+        </ul>
+      </div>
+
+      <div class="flex items-center gap-2">
         <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
         <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
+      </div>
+      <!-- User Profile (clickable) -->
+      <div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
+        <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+        <span id="profileName">Guest</span>
 
-       
-
-       <!-- User Profile (hidden by default, shown after login) -->
-       <li id="userProfile" style="display:none;">
-         <img id="profileImg" src="default-profile.png" alt="Profile" class="profile-img">
-         <span id="profileName"></span>
-         <button id="logoutBtn" class="btn">Logout</button>
-        </li>
-      </ul>
-      <button id="menu-toggle">☰</button>
+      <!-- Dropdown Panel -->
+      <div id="profileDropdown" class="profile-dropdown hidden">
+        <button id="logoutBtn">Logout</button>
+      </div>
+      </div>
     </nav>
+    
   </header>
 
 
@@ -53,7 +60,7 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" placeholder="Password" required />
       <!-- Google OAuth button as a direct link -->
-      <a href="https://lrspllpqnfzqvakkkjuq.supabase.co/auth/v1/authorize?provider=google&redirect_to=http://localhost:5500/index.html" 
+      <a href="https://lrspllpqnfzqvakkkjuq.supabase.co/auth/v1/authorize?provider=google&redirect_to=https://vellorey.com/index.html"
           class="google-btn">
         <img src="https://developers.google.com/identity/images/g-logo.png" 
               alt="Google Logo" class="google-logo">
@@ -65,18 +72,20 @@
     </form>  
   </main>
 
-  <footer class="footer">
-  <div class="footer-links">
+  <footer class="footer-links">
+  <div >
     <a href="/policies/about.html" target="_blank">About Us</a>
     <a href="/policies/privacy.html" target="_blank">Privacy Policy</a>
     <a href="/policies/disclaimer.html" target="_blank">Disclaimer</a>
     <a href="/policies/terms.html" target="_blank">Terms & Conditions</a>
   </div>
+  <div>
   <p class="footer-copy">© 2025 Vellorey. All rights reserved.</p>
+  </div>
 </footer>
 
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script type="module" src="index.js"></script>
-</body>
+  </body>
 </html>

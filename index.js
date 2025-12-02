@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const loginBtn = document.getElementById('loginBtn');
   const profileDisplay = document.getElementById('profileName');
   const profileAvatar = document.getElementById('profileAvatar') || document.getElementById('profileImg');
-  const googlePopup = document.getElementById('googlePopup');
-  const popupGoogleBtn = document.getElementById('popupGoogleBtn');
-  const closePopupBtn = document.getElementById('closePopup');
 
   // ---------- NAV TOGGLE ----------
   menuToggle?.addEventListener('click', () => navLinks.classList.toggle('active'));
@@ -34,18 +31,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const res = await sb.signUp(email, password, username);
     if (res.error) {
-      const msg = (res.error?.message || '').toLowerCase();
+      const msg = (res.error.message || '').toLowerCase();
       if (signupFooter) {
-        if ((msg.includes('users_email_key') || (msg.includes('duplicate key') && msg.includes('email'))))
+        if (msg.includes('duplicate') && msg.includes('email')) {
           signupFooter.textContent = '⚠ Email already in use.';
-        else if ((msg.includes('users_username_key') || (msg.includes('duplicate key') && msg.includes('username'))))
-          signupFooter.textContent = '⚠ Username unavailable.';
-        else signupFooter.textContent = '⚠ ' + (res.error.message || res.error);
+        } else {
+          signupFooter.textContent = '⚠ ' + res.error.message;
+        }
       }
       return;
     }
 
-    if (signupFooter) signupFooter.innerHTML = '✅ Signup successful! 🎉';
+    if (signupFooter) signupFooter.textContent = '✅ Signup successful! 🎉';
     if (window.confetti) confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     setTimeout(() => window.location.href = 'index.html', 1400);
   });
@@ -86,19 +83,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else profileAvatar && (profileAvatar.style.display = 'none');
   }
   await updateProfileUI();
-
-  // ---------- GOOGLE POPUP ----------
-  if (googlePopup && popupGoogleBtn && closePopupBtn) {
-    const { data: { session } } = await sb.supabase.auth.getSession();
-    if (!session && !localStorage.getItem('google_popup_shown')) {
-      googlePopup.classList.remove('hidden');
-      localStorage.setItem('google_popup_shown', 'true');
-      popupGoogleBtn.addEventListener('click', () => {
-        window.location.href = `${sb.supabase.authUrl}?provider=google&redirect_to=${window.location.origin}/index.html`;
-      });
-      closePopupBtn.addEventListener('click', () => googlePopup.classList.add('hidden'));
-    }
-  }
 
   // ---------- WRITE ARTICLE ----------
   const writeForm = document.getElementById("submitArticleForm");
@@ -175,11 +159,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     tgt?.scrollIntoView({ behavior: 'smooth' });
   }));
 
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('mouseenter', () => { card.style.boxShadow = '0 6px 15px rgba(0,0,0,0.15)'; card.style.transform = 'translateY(-5px)'; });
-    card.addEventListener('mouseleave', () => { card.style.boxShadow = ''; card.style.transform = ''; });
-  });
-
   document.querySelectorAll('.toggle-password').forEach(btn => {
     btn.addEventListener('click', () => {
       const input = btn.previousElementSibling || document.getElementById('password');
@@ -192,6 +171,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const logoutBtn = document.getElementById('logoutBtn');
 
   userProfile?.addEventListener('click', e => { e.stopPropagation(); profileDropdown?.classList.toggle('show'); });
-  logoutBtn?.addEventListener('click', async e => { e.stopPropagation(); await sb.logout(); localStorage.removeItem('google_popup_shown'); window.location.href = 'index.html'; });
+  logoutBtn?.addEventListener('click', async e => { e.stopPropagation(); await sb.logout(); window.location.href = 'index.html'; });
   document.addEventListener('click', () => profileDropdown?.classList.remove('show'));
 });

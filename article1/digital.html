@@ -12,11 +12,10 @@
 <body>
 
   <!-- Header -->
-  <!-- Header -->
-  <header>
+    <header>
   <!-- Logo + Favicon -->
     <div class="logo">
-    <img src="../vellorey.jpg" alt="Vellorey Logo" class="logo-img">
+    <img src="..//vellorey.jpg" alt="Vellorey Logo" class="logo-img">
     Vellorey
    </div>
 
@@ -25,34 +24,35 @@
       <div class="flex items-center gap-4">
         <button id="menu-toggle" class="btn md:hidden">☰</button>
        <ul class="nav-links flex gap-4">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="write.html">Write an Article</a></li>
+          <li><a href="..//index.html">Home</a></li>
+          <li><a href="..//write.html">Write an Article</a></li>
           
         </ul>
       </div>
 
       <div class="flex items-center gap-2">
-        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
-        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
-
-    <!-- User Profile (clickable) -->
-    <div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
-      <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
-      <span id="profileName">Guest</span>
+        <li id="loginBtn"><a href="..//login.html" class="btn">Login</a></li>
+        <li id="signupBtn"><a href="..//signup.html" class="btn">Signup</a></li>
+      </div>
+      <!-- User Profile (clickable) -->
+      <div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
+        <!--<img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">-->
+        <span id="profileName">Guest</span>
 
       <!-- Dropdown Panel -->
       <div id="profileDropdown" class="profile-dropdown hidden">
         <button id="logoutBtn">Logout</button>
       </div>
-    </div>
-    </nav>  
+      </div>
+    </nav>
+    
   </header>
 
   <!-- Article Content -->
   <main id="article-content" style="max-width:900px; margin:2rem auto; padding:0 1rem; line-height:1.6; font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
     <article>
       <h1 style="font-size:1.9rem; margin-bottom:0.2rem;">How to Start Digital Marketing: SIMPLE GUIDE FOR BEGINNER</h1>
-      <p class="meta" style="color:#666; margin:0 0 1rem 0;">Published: Oct 18, 2025 • 6 min read</p>
+      <p class="meta" style="color:#666; margin:0 0 1rem 0;">Published: Nov 30, 2025 • 6 min read</p>
 
       <!-- placeholder images (you will add src values later) -->
       <figure style="margin:1rem 0;">
@@ -200,16 +200,20 @@
   </main>
 
   <!-- Footer (policies open in new tab) -->
-  <footer class="footer" style="border-top:1px solid #eee; padding:1.25rem; margin-top:2rem; text-align:center;">
-    <div class="footer-links" style="margin-bottom:0.5rem;">
-      <a href="/policies/about.html" target="_blank" style="margin-right:0.75rem;">About Us</a>
-      <a href="/policies/privacy.html" target="_blank" style="margin-right:0.75rem;">Privacy Policy</a>
-      <a href="/policies/disclaimer.html" target="_blank" style="margin-right:0.75rem;">Disclaimer</a>
-      <a href="/policies/terms.html" target="_blank">Terms &amp; Conditions</a>
-    </div>
-    <p class="footer-copy" style="color:#666; font-size:0.95rem;">© 2025 Vellorey. All rights reserved.</p>
-  </footer>
+  <footer class="footer-links">
+  <div >
+    <a href="/policies/about.html" target="_blank">About Us</a>
+    <a href="/policies/privacy.html" target="_blank">Privacy Policy</a>
+    <a href="/policies/disclaimer.html" target="_blank">Disclaimer</a>
+    <a href="/policies/terms.html" target="_blank">Terms & Conditions</a>
+  </div>
+  <div>
+  <p class="footer-copy">© 2025 Vellorey. All rights reserved.</p>
+  </div>
+</footer>
 
-  <script type="module" src="../index.js"></script>
-</body>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script type="module" src="..//index.js"></script>
+  </body>
 </html>

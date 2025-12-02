@@ -181,6 +181,10 @@ main.center-vertical {
 .card a:hover {
   color: var(--accent);
 }
+.card-content:hover * {
+  color: var(--accent);
+}
+
 
 /* =========================
    Buttons
@@ -535,7 +539,7 @@ nav ul li a:hover, nav ul li button:hover {
 nav {
   display: flex;
   justify-content: space-between; /* left links / right profile */
-  align-items: center;
+  align-items: right;
   flex-wrap: wrap; /* prevents overflow */
   padding: 0.5rem 1rem;
 }
@@ -580,11 +584,11 @@ nav > div.flex.items-center.gap-2 {
   }
 
   /* Keep login/profile below links */
-  nav > div.flex.items-center.gap-2 {
+  /*nav > div.flex.items-center.gap-2 {
     width: 100%;
     justify-content: flex-end;
     margin-top: 0.5rem;
-  }
+  }*/
 }
 /* Overlay */
 .popup {
@@ -923,16 +927,15 @@ nav > div.flex.items-center.gap-2 {
   background: #111;
   color: #fff;
   text-align: center;
-}
-
-/* LINK ROW */
-.footer-links {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 10px;
 }
+
+/* LINK ROW */
+
 
 .footer-links a {
   color: #ffffffc6;
@@ -949,7 +952,7 @@ nav > div.flex.items-center.gap-2 {
 
 /* COPYRIGHT */
 .footer-copy {
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 14px;
   opacity: 0.7;
 }
@@ -1091,4 +1094,29 @@ article pre {
 }
 #idk{
   text-decoration: none;
+}
+/* Default: Hide on desktop */
+#menu-toggle {
+  display: none;                /* hidden on PC */
+}
+
+/* Show only on screens below 768px */
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: inline-flex;       /* show on mobile */
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.7rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    padding: 4px 8px;
+    margin-left: auto;          /* push to right side */
+
+    color: inherit;
+    position: relative;
+    z-index: 1000;
+  }
 }

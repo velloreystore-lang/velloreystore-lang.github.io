@@ -11,39 +11,40 @@
 <body>
 
 <!-- Header -->
-  <header>
-   <!-- Logo + Favicon -->
+    <header>
+  <!-- Logo + Favicon -->
     <div class="logo">
-      <img src="vellorey.jpg" alt="Vellorey Logo" class="logo-img">
-     Vellorey
-    </div>
+    <img src="vellorey.jpg" alt="Vellorey Logo" class="logo-img">
+    Vellorey
+   </div>
 
-    <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">About</a></li>
-       <li><a href="#">Contact</a></li>
+      <!-- Navigation -->
+    <nav class="relative flex items-center justify-between px-4 py-2">
+      <div class="flex items-center gap-4">
+        <button id="menu-toggle" class="btn md:hidden">☰</button>
+       <ul class="nav-links flex gap-4">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="write.html">Write an Article</a></li>
+          
+        </ul>
+      </div>
 
-       <!-- Standard Login/Signup buttons -->
+      <div class="flex items-center gap-2">
         <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
         <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
+      </div>
+      <!-- User Profile (clickable) -->
+      <div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
+        <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+        <span id="profileName">Guest</span>
 
-        
-
-        <!-- User Profile (clickable) -->
-<div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
-  <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
-  <span id="profileName">Guest</span>
-
-  <!-- Dropdown Panel -->
-  <div id="profileDropdown" class="profile-dropdown hidden">
-    <button id="logoutBtn">Logout</button>
-  </div>
-</div>
-     <button id="menu-toggle">☰</button>
-   </nav>
+      <!-- Dropdown Panel -->
+      <div id="profileDropdown" class="profile-dropdown hidden">
+        <button id="logoutBtn">Logout</button>
+      </div>
+      </div>
+    </nav>
+    
   </header>
 
   <main class="center-vertical">
@@ -84,24 +85,27 @@
         <small id="wordSuccess" class="success-msg"></small>
 
         <!--<button type="submit" class="btn">Submit for Review</button>-->
-        <p><i>This Feature is coming soon....</i></p>
+        <p><i>THIS FEATURE IS COMING SOON...</i></p>
+      </form>
         
 
 
   </main>
 
-  <footer class="footer">
-  <div class="footer-links">
+  <footer class="footer-links">
+  <div >
     <a href="/policies/about.html" target="_blank">About Us</a>
     <a href="/policies/privacy.html" target="_blank">Privacy Policy</a>
     <a href="/policies/disclaimer.html" target="_blank">Disclaimer</a>
     <a href="/policies/terms.html" target="_blank">Terms & Conditions</a>
   </div>
+  <div>
   <p class="footer-copy">© 2025 Vellorey. All rights reserved.</p>
+  </div>
 </footer>
 
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script type="module" src="index.js"></script>
-</body>
+  </body>
 </html>
