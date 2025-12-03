@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vellorey Blog</title>
+  <meta name="description" content="Vellorey Blog - Latest articles on tech, lifestyle, and more.">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="icon" href="../../vellorey.jpg" type="image/png">
+  <meta name="google-site-verification" content="ZGUbHftftNgXfs0Kq6TSYPqyZcttzIUdYPglAUuOlhw" />
+
+</head>
+<body>
+
+<!-- Header -->
+  <header>
+  <!-- Logo + Favicon -->
+    <div class="logo">
+    <img src="..//vellorey.jpg" alt="Vellorey Logo" class="logo-img">
+    Vellorey
+   </div>
+
+      <!-- Navigation -->
+    <nav class="relative flex items-center justify-between px-4 py-2">
+      <div class="flex items-center gap-4">
+        <button id="menu-toggle" class="btn md:hidden">☰</button>
+       <ul class="nav-links flex gap-4">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../write.html">Write an Article</a></li>
+          
+        </ul>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <li id="loginBtn"><a href="..//login.html" class="btn">Login</a></li>
+        <li id="signupBtn"><a href="..//signup.html" class="btn">Signup</a></li>
+      </div>
+      <!-- User Profile (clickable) -->
+      <div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
+        <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+        <span id="profileName">Guest</span>
+
+      <!-- Dropdown Panel -->
+      <div id="profileDropdown" class="profile-dropdown hidden">
+        <button id="logoutBtn">Logout</button>
+      </div>
+      </div>
+    </nav>
+    
+  </header>
+
+  <!-- Main Content -->
+  <main id="blog-list">
+    <!-- Blog Card 1 -->
+    <div class="card">
+      <a href="/blogs/article1/digital.html">
+      <img src="/blogs/article1/digital1.jpeg" alt="Digital marketing image 1" style="width:100%;height: auto; border-radius:10px; display:block;">
+      <div class="card-content"> 
+        <h2>How to Start Digital Marketing: SIMPLE GUIDE FOR BEGINNER</h2>
+        <p class="meta">Published: Nov 30, 2025 • 6 min read</p>
+        <p>A simple step-by-step guide for beginners on how to start digital marketing from home, grow a business, and avoid common mistakes.</p>
+      </div></a>
+    </div>
+
+    <!-- Blog Card 2 -->
+    <div class="card">
+      <a href="/blogs/article2/bless.html">
+      <img src="/blogs/article2/bless1.jpeg" alt="Happy Monday Blessings Image 1" style="width:100%;height: 22rem; border-radius:10px; display:block;">
+      <div class="card-content">
+        <h2>150+ Positive Monday Blessings, Messages, and Quotes 2025</h2>
+        <p class="meta" style="color:#666; margin:0 0 1rem 0;">Published: Dec 1, 2025 • 10 min read</p>
+        <p>Start your week with positivity and inspiration. Discover 150+ Happy Monday blessings, prayers, quotes, and beautiful images.</p>
+      </div></a>
+    </div>
+
+    <!-- Blog Card 3 -->
+    <div class="card">
+      <a href="/blogs/article3/tue.html">
+      <img src="/blogs/article3/tue1.jpeg" alt="Happy Tuesday Blessings Image 1" style="width:100%;height: 22rem; border-radius:10px; display:block;">
+      <div class="card-content">
+        <h2>150+ Best Tuesday Blessings, Prayers, Quotes & Images</h2>
+        <p class="meta" style="color:#666; margin:0 0 1rem 0;">Published: Dec 2, 2025 • 10 min read</p>
+        <p>150+ Best Tuesday blessings, morning prayers, inspirational quotes, cute wishes, and peaceful messages to brighten your day with positivity, love, and faith.</p>
+      </div></a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-links">
+  <div >
+    <a href="/policies/about.html" target="_blank">About Us</a>
+    <a href="/policies/privacy.html" target="_blank">Privacy Policy</a>
+    <a href="/policies/disclaimer.html" target="_blank">Disclaimer</a>
+    <a href="/policies/terms.html" target="_blank">Terms & Conditions</a>
+  </div>
+  <div>
+  <p class="footer-copy">© 2025 Vellorey. All rights reserved.</p>
+  </div>
+</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script type="module" src="..//index.js"></script>
+  </body>
+</html>

@@ -1,3 +1,4 @@
+// supabase-helpers.js
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 const SUPABASE_URL = 'https://lrspllpqnfzqvakkkjuq.supabase.co';
@@ -6,7 +7,9 @@ const SUPABASE_ANON_KEY = 'sb_publishable_ogypx7tElz8TASaJVZ2R5w_XxXZ81VZ';
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* ---------------------------------------------------
-   SIGNUP — only uses auth.users, no custom table
+   SIGNUP - requires email verification (redirect back)
+   - stores username in user_metadata
+   - after signup user will receive a confirmation email
 ---------------------------------------------------- */
 export async function signUp(email, password, username) {
   try {
@@ -14,12 +17,12 @@ export async function signUp(email, password, username) {
       email,
       password,
       options: {
-        data: { username } // store username in user_metadata
+        emailRedirectTo: window.location.origin + "/login.html",
+        data: { username }
       }
     });
 
     if (error) return { data: null, error };
-
     return { data, error: null };
   } catch (err) {
     return { data: null, error: err };
@@ -27,7 +30,9 @@ export async function signUp(email, password, username) {
 }
 
 /* ---------------------------------------------------
-   LOGIN — standard email/password
+   LOGIN — email + password
+   - if Supabase returns an error mentioning email not confirmed we surface a friendly message
+   - returns data or error
 ---------------------------------------------------- */
 export async function login(email, password) {
   try {
@@ -35,14 +40,77 @@ export async function login(email, password) {
       email,
       password
     });
-    return { data: data ?? null, error: error ?? null };
+
+    if (error) {
+      // friendly message for unverified email (Supabase often returns text like "Email not confirmed")
+      const msg = (error.message || "").toLowerCase();
+      if (msg.includes("email") && (msg.includes("confirm") || msg.includes("verified") || msg.includes("confirm"))) {
+        return { data: null, error: { message: "Please verify your email first. Check your inbox." } };
+      }
+      return { data: null, error };
+    }
+
+    // if sign in returned a user but your policy still requires verified -> check user object
+    // (in many setups signInWithPassword will fail if not verified; this is just a safety net)
+    return { data, error: null };
   } catch (err) {
     return { data: null, error: err };
   }
 }
 
 /* ---------------------------------------------------
-   GOOGLE LOGIN — OAuth flow
+   SEND Magic Link (email link)
+   - Uses signInWithOtp which sends a magic link by email
+---------------------------------------------------- */
+export async function sendMagicLink(email) {
+  try {
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: window.location.origin + "/index.html" }
+    });
+    return { data, error: error ?? null };
+  } catch (err) {
+    return { data: null, error: err };
+  }
+}
+
+/* ---------------------------------------------------
+   SEND OTP (6-digit code) — same endpoint as magic link
+   - Supabase will email a code if OTP is enabled
+---------------------------------------------------- */
+export async function sendOTP(email) {
+  try {
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: window.location.origin + "/index.html" }
+    });
+    return { data, error: error ?? null };
+  } catch (err) {
+    return { data: null, error: err };
+  }
+}
+
+/* ---------------------------------------------------
+   VERIFY OTP (if you implement token entry workflow)
+   - verifyOtp is available in the SDK if you use OTP codes
+   - type = 'email' for email OTPs
+---------------------------------------------------- */
+export async function verifyOtp(email, token) {
+  try {
+    const { data, error } = await supabase.auth.verifyOtp({
+      email,
+      token,
+      type: "email"
+    });
+    return { data, error: error ?? null };
+  } catch (err) {
+    return { data: null, error: err };
+  }
+}
+
+/* ---------------------------------------------------
+   Google Sign-In helper (OAuth)
+   - uses the SDK to start OAuth flow (better than static href)
 ---------------------------------------------------- */
 export async function signInWithGoogle() {
   try {
@@ -50,7 +118,7 @@ export async function signInWithGoogle() {
       provider: 'google',
       options: { redirectTo: window.location.origin + '/index.html' }
     });
-    return { data: data ?? null, error: error ?? null };
+    return { data, error: error ?? null };
   } catch (err) {
     return { data: null, error: err };
   }
@@ -69,7 +137,8 @@ export async function logout() {
 }
 
 /* ---------------------------------------------------
-   GET CURRENT USER — reads auth.users metadata
+   GET CURRENT USER (convenience)
+   - returns { user, profile } where profile is pulled from user_metadata
 ---------------------------------------------------- */
 export async function getCurrentUser() {
   try {
@@ -80,7 +149,8 @@ export async function getCurrentUser() {
 
     const profile = {
       username: user.user_metadata?.username || user.user_metadata?.full_name || null,
-      avatar_url: user.user_metadata?.avatar_url || null
+      avatar_url: user.user_metadata?.avatar_url || null,
+      email: user.email
     };
 
     return { user, profile };
@@ -90,61 +160,23 @@ export async function getCurrentUser() {
 }
 
 /* ---------------------------------------------------
-   UPLOAD COVER IMAGE
+   ensureProfile()
+   - optional: creates/updates a row in 'profiles' table for your app to query
+   - If you don't have profiles table, this will safely return null/error.
 ---------------------------------------------------- */
-export async function uploadCoverImage(file, userId) {
-  if (!file) return { url: null, error: null };
+export async function ensureProfile(userId, username, avatar_url = null) {
   try {
-    const filePath = `${userId}-${Date.now()}-${file.name}`;
-    const { data, error } = await supabase.storage.from('articles').upload(filePath, file, {
-      cacheControl: '3600',
-      upsert: false,
-      metadata: { user_id: userId }
-    });
-    if (error) return { url: null, error };
-
-    const { data: urlData } = supabase.storage.from('articles').getPublicUrl(filePath);
-    return { url: urlData.publicUrl, error: null };
-  } catch (err) {
-    return { url: null, error: err };
-  }
-}
-
-/* ---------------------------------------------------
-   SUBMIT ARTICLE — author_id uses auth.users
----------------------------------------------------- */
-export async function submitPendingArticle({ title, content, coverFile }) {
-  try {
-    const current = await getCurrentUser();
-    if (!current?.user) return { data: null, error: { message: 'You must be logged in.' } };
-
-    const userId = current.user.id;
-
-    if (!title?.trim()) return { data: null, error: { message: 'Title is required.' } };
-    if (!content?.trim()) return { data: null, error: { message: 'Content is required.' } };
-
-    const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
-    if (wordCount < 2000) return { data: null, error: { message: 'Article must be at least 2000 words.' } };
-
-    let coverUrl = null;
-    if (coverFile) {
-      const { url } = await uploadCoverImage(coverFile, userId);
-      if (url) coverUrl = url;
-    }
-
+    // attempt upsert into profiles table (create if not exists)
     const payload = {
-      title,
-      content,
-      cover_image: coverUrl,
-      author_id: userId,
-      status: 'pending',
-      created_at: new Date().toISOString()
+      id: userId,
+      username,
+      avatar_url,
+      updated_at: new Date().toISOString()
     };
-
-    const { data, error } = await supabase.from('pending_articles').insert([payload]);
+    // using upsert ensures we don't duplicate
+    const { data, error } = await supabase.from('profiles').upsert(payload, { returning: 'minimal' }); 
     if (error) return { data: null, error };
-
-    return { data, error: null };
+    return { data: data ?? null, error: null };
   } catch (err) {
     return { data: null, error: err };
   }
