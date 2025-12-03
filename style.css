@@ -83,7 +83,7 @@ header {
 /* Mobile styles */
 @media (max-width: 768px) {
   #menu-toggle {
-    display: block;
+    display: inline-block;
   }
 
   .nav-links {
@@ -384,6 +384,8 @@ header {
   align-items: center;
   font-size: 1.8rem;
   font-weight: bold;
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 .logo-img {
@@ -557,7 +559,7 @@ nav {
 nav > div.flex.items-center.gap-2 {
   display: flex;
   gap: 0.5rem;
-  align-items: center;
+  align-items: right;
 }
 
 /* Mobile toggle */
@@ -568,7 +570,7 @@ nav > div.flex.items-center.gap-2 {
 /* Mobile styles */
 @media (max-width: 768px) {
   #menu-toggle {
-    display: block;
+    display: inline-block;
   }
 
   .nav-links {
@@ -1104,8 +1106,8 @@ article pre {
 @media (max-width: 768px) {
   #menu-toggle {
     display: inline-flex;       /* show on mobile */
-    align-items: center;
-    justify-content: center;
+    align-items: right;
+    justify-content: right;
 
     font-size: 1.7rem;
     background: none;
