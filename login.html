@@ -28,29 +28,26 @@
    </div>
 
       <!-- Navigation -->
-    <nav class="relative flex items-center justify-between px-4 py-2">
-      <div class="flex items-center gap-4">
-        <button id="menu-toggle" class="btn md:hidden">☰</button>
-       <ul class="nav-links flex gap-4">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="write.html">Write an Article</a></li>
-          
+    <nav class="navbar">
+    
+      <div class="navbar-container">
+      
+        <button class="navbar-toggle">☰</button>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+       <ul class="navbar-menu">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../write.html">Write an Article</a></li>
+          <li id="userProfile">
+          <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+          <span id="profileName">Guest</span>
+          </li>
+          <!-- Dropdown Panel -->
+          <div id="profileDropdown" class="profile-dropdown hidden">
+            <button id="logoutBtn">Logout</button>
+          </div>
         </ul>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
-        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
-      </div>
-      <!-- User Profile (clickable) -->
-      <div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
-        <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
-        <span id="profileName">Guest</span>
-
-      <!-- Dropdown Panel -->
-      <div id="profileDropdown" class="profile-dropdown hidden">
-        <button id="logoutBtn">Logout</button>
-      </div>
       </div>
     </nav>
     
@@ -60,25 +57,28 @@
   <!-- Login Form -->
   <main class="center-vertical">
     
-    <form id="loginForm" class="form-card">
-      <h2>Login</h2>
+    <div class="auth-wrapper">
+  <div class="auth-box">
+    <h1>Welcome to <span>Vellorey</span></h1>
+    <p><i>UNDER REVEIW</i></p>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+    <a href="https://lrspllpqnfzqvakkkjuq.supabase.co/auth/v1/callback"><button class="btn google" id="googleBtn">
+      <img src="icons/google.png" alt="Google" class="btn-icon">
+      Continue with Google
+    </button></a>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Password" required />
-      <!-- Google OAuth button as a direct link -->
-      <a href="https://lrspllpqnfzqvakkkjuq.supabase.co/auth/v1/authorize?provider=google&redirect_to=https://vellorey.com/index.html"
-          class="google-btn">
-        <img src="https://developers.google.com/identity/images/g-logo.png" 
-              alt="Google Logo" class="google-logo">
-        <span>Continue with Google</span>
-      </a>
+    <button class="btn github" id="githubBtn">
+      <img src="icons/github.png" alt="GitHub" class="btn-icon">
+      Continue with GitHub
+    </button>
 
-    
-      <button type="submit" class="btn">Login</button>
-    </form>  
+    <button class="btn discord" id="discordBtn">
+      <img src="icons/discord.png" alt="Discord" class="btn-icon">
+      Continue with Discord
+    </button>
+  </div>
+</div>
+
   </main>
 
   <footer class="footer-links">

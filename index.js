@@ -1,6 +1,8 @@
 // index.js
-import * as sb from './supabase-helpers.js';
-import { supabase } from './supabase-helpers.js'; // used for onAuthStateChange
+
+import { supabase, getCurrentUser, ensureProfile } 
+  from './supabase-helpers.js';
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   // ---------- DOM REFS ----------
@@ -23,117 +25,103 @@ document.addEventListener('DOMContentLoaded', async () => {
 const urlParams = new URLSearchParams(window.location.search);
 const redirectTo = urlParams.get('redirect') || 'index.html';
 
-// ---------- SIGNUP ----------
-signupForm?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  if (signupFooter) signupFooter.textContent = 'Processing...';
+//LOGIN/SIGN UP FORM SUBMITS
+document.addEventListener("DOMContentLoaded", async () => {
+  // ---------- BUTTONS ----------
+  document
+    .getElementById("googleBtn")
+    ?.addEventListener("click", () => signInWithProvider("google"));
 
-  const username = (e.target.username?.value || '').trim();
-  const email = (e.target.email?.value || '').trim();
-  const password = (e.target.password?.value || '').trim();
+  document
+    .getElementById("githubBtn")
+    ?.addEventListener("click", () => signInWithProvider("github"));
 
-  if (!username || !email || !password) {
-    if (signupFooter) signupFooter.textContent = '⚠ Please fill all fields.';
-    return;
-  }
+  document
+    .getElementById("discordBtn")
+    ?.addEventListener("click", () => signInWithProvider("discord"));
 
-  const res = await sb.signUp(email, password, username);
-  if (res.error) {
-    const msg = (res.error.message || '').toLowerCase();
-    if (signupFooter) {
-      if (msg.includes('duplicate') && msg.includes('email')) {
-        signupFooter.textContent = '⚠ Email already in use.';
-      } else {
-        signupFooter.textContent = '⚠ ' + (res.error.message || 'Signup error');
-      }
+  document
+    .getElementById("logoutBtn")
+    ?.addEventListener("click", async () => {
+      await logout();
+      window.location.reload();
+    });
+
+  // ---------- AUTH REDIRECT HANDLER ----------
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event !== "SIGNED_IN" || !session) return;
+
+    // Read OAuth state
+    const hashParams = new URLSearchParams(
+      window.location.hash.replace("#", "")
+    );
+
+    const stateRaw = hashParams.get("state");
+
+    if (stateRaw) {
+      try {
+        const state = JSON.parse(decodeURIComponent(stateRaw));
+        if (state.from) {
+          window.location.replace(state.from);
+          return;
+        }
+      } catch (e) {}
     }
-    return;
-  }
 
-  if (signupFooter) signupFooter.textContent = '✅ Signup successful! Please confirm your email (check inbox).';
-  if (window.confetti) confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-
-  // Redirect to check-email page with redirect param preserved
-  setTimeout(() => {
-    window.location.href = `check-email.html?redirect=${encodeURIComponent(redirectTo)}`;
-  }, 1200);
+    // Fallback
+    window.location.replace("/index.html");
+  });
 });
-
-// ---------- LOGIN ----------
-loginForm?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = (e.target.email?.value || '').trim();
-  const password = (e.target.password?.value || '').trim();
-  if (!email || !password) return alert('Enter email & password');
-
-  const res = await sb.login(email, password);
-  if (res.error) return alert(res.error.message || 'Login failed');
-
-  // Successful login: redirect back to the previous page
-  window.location.href = redirectTo;
-});
-
-// ---------- Magic Link / OTP Buttons ----------
-magicBtn?.addEventListener('click', async () => {
-  const emailInput = document.querySelector('#email') || document.querySelector('#magic-email');
-  const email = emailInput?.value?.trim();
-  if (!email) return alert('Enter your email for magic link');
-
-  const { error } = await sb.sendMagicLink(email);
-  if (error) alert(error.message || 'Error sending magic link');
-  else alert('Magic link sent! Check your email.');
-});
-
-otpBtn?.addEventListener('click', async () => {
-  const emailInput = document.querySelector('#email') || document.querySelector('#otp-email');
-  const email = emailInput?.value?.trim();
-  if (!email) return alert('Enter your email for OTP');
-
-  const { error } = await sb.sendOTP(email);
-  if (error) alert(error.message || 'Error sending OTP');
-  else alert('OTP sent! Check your email.');
-});
-
 
   // ---------- PROFILE UI ----------
-  async function loadUserProfile() {
-    const current = await sb.getCurrentUser();
-    if (!current?.user) {
-      hideUserProfile();
-      return;
-    }
+async function loadUserProfile() {
+  const current = await getCurrentUser(); // FIXED: no sb.
 
-    // prefer username from metadata, else fallback to email
-    const username = current.profile?.username || current.user?.user_metadata?.full_name || current.user?.email || 'User';
-    if (profileDisplay) profileDisplay.textContent = username;
-
-    const avatarUrl = current.profile?.avatar_url || current.user?.user_metadata?.avatar_url;
-    if (avatarUrl && profileAvatar) {
-      profileAvatar.src = avatarUrl;
-      profileAvatar.style.display = 'inline-block';
-    } else if (profileAvatar) {
-      profileAvatar.style.display = 'none';
-    }
-
-    // hide login/signup buttons in nav
-    signupBtn?.style.setProperty('display', 'none');
-    loginBtn?.style.setProperty('display', 'none');
-
-    // ensure we have a profiles row (optional - will not fail if table missing)
-    if (current.user?.id) {
-      await sb.ensureProfile(current.user.id, username, avatarUrl || null);
-    }
+  if (!current?.user) {
+    hideUserProfile();
+    return;
   }
 
-  function hideUserProfile() {
-    signupBtn?.style.setProperty('display', 'inline-block');
-    loginBtn?.style.setProperty('display', 'inline-block');
-    if (profileDisplay) profileDisplay.textContent = '';
-    if (profileAvatar) profileAvatar.style.display = 'none';
+  // prefer username from metadata, else fallback to email
+  const username =
+    current.profile?.username ||
+    current.user?.user_metadata?.full_name ||
+    current.user?.email ||
+    'User';
+
+  if (profileDisplay) profileDisplay.textContent = username;
+
+  const avatarUrl =
+    current.profile?.avatar_url ||
+    current.user?.user_metadata?.avatar_url;
+
+  if (avatarUrl && profileAvatar) {
+    profileAvatar.src = avatarUrl;
+    profileAvatar.style.display = 'inline-block';
+  } else if (profileAvatar) {
+    profileAvatar.style.display = 'none';
   }
 
-  // run once on load to set UI correctly (if session exists)
-  await loadUserProfile();
+  // hide login/signup buttons in nav
+  signupBtn?.style.setProperty('display', 'none');
+  loginBtn?.style.setProperty('display', 'none');
+
+  // ensure we have a profiles row
+  if (current.user?.id) {
+    await ensureProfile(current.user.id, username, avatarUrl || null); // FIXED: no sb.
+  }
+}
+
+function hideUserProfile() {
+  signupBtn?.style.setProperty('display', 'inline-block');
+  loginBtn?.style.setProperty('display', 'inline-block');
+  if (profileDisplay) profileDisplay.textContent = '';
+  if (profileAvatar) profileAvatar.style.display = 'none';
+}
+
+// run once on load to set UI correctly (if session exists)
+await loadUserProfile();
+
 
   // ---------- WRITE ARTICLE (your existing code kept) ----------
   const writeForm = document.getElementById("submitArticleForm");
@@ -235,4 +223,12 @@ otpBtn?.addEventListener('click', async () => {
       hideUserProfile();
     }
   });
+});
+// ------------- nav bar center fix -------------
+const navbarToggle = document.querySelector('.navbar-toggle');
+const navbarMenu = document.querySelector('.navbar-menu');
+
+navbarToggle?.addEventListener('click', () => {
+  navbarToggle.classList.toggle('active');
+  navbarMenu.classList.toggle('active');
 });
