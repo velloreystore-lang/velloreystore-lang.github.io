@@ -28,30 +28,27 @@
    </div>
 
       <!-- Navigation -->
-    <nav class="relative flex items-center justify-between px-4 py-2">
-      <div class="flex items-center gap-4">
-        <button id="menu-toggle" class="btn md:hidden">☰</button>
-       <ul class="nav-links flex gap-4">
-          <li><a href="index.html">Home</a></li>
+    <nav class="navbar">
+    
+      <div class="navbar-container">
+      
+        <button class="navbar-toggle">☰</button>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+       <ul class="navbar-menu">
+          <li><a href="../../index.html">Home</a></li>
           <li><a href="/blogs/blog.html">Blogs</a></li>
-          <!--<li><a href="write.html">Write an Article</a></li>-->
-          
+          <li id="loginBtn"><a href="..//login.html" >Login / SignUp</a></li>
+          <li id="userProfile">
+          <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
+          <span id="profileName">Guest</span>
+          </li>
+          <!-- Dropdown Panel -->
+          <div id="profileDropdown" class="profile-dropdown hidden">
+            <button id="logoutBtn">Logout</button>
+          </div>
         </ul>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <li id="loginBtn"><a href="login.html" class="btn">Login</a></li>
-        <li id="signupBtn"><a href="signup.html" class="btn">Signup</a></li>
-      </div>
-      <!-- User Profile (clickable) -->
-      <div id="userProfile" class="profile flex items-center gap-2 cursor-pointer relative">
-        <img id="profileAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full">
-        <span id="profileName">Guest</span>
-
-      <!-- Dropdown Panel -->
-      <div id="profileDropdown" class="profile-dropdown hidden">
-        <button id="logoutBtn">Logout</button>
-      </div>
       </div>
     </nav>
     
