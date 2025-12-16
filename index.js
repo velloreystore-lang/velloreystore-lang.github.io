@@ -227,8 +227,17 @@ await loadUserProfile();
 // ------------- nav bar center fix -------------
 const navbarToggle = document.querySelector('.navbar-toggle');
 const navbarMenu = document.querySelector('.navbar-menu');
+const cross = document.querySelector('.cross');
 
 navbarToggle?.addEventListener('click', () => {
   navbarToggle.classList.toggle('active');
   navbarMenu.classList.toggle('active');
+  cross.style.display = 'block';
+  navbarToggle.style.display = 'none';
+});
+cross?.addEventListener('click', () => {
+  navbarToggle.classList.toggle('active');
+  navbarMenu.classList.toggle('active');
+  cross.style.display = 'none';
+  navbarToggle.style.display = 'block';
 });

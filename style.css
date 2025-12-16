@@ -115,7 +115,6 @@ header {
   right: 10px;
   font-size: 1.5rem;
 }
-
 .navbar-toggle .bar {
   width: 25px;
   height: 3px;
@@ -123,6 +122,25 @@ header {
   margin: 5px 0;
   transition: all 0.3s ease;
 }
+.cross{
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  font-size: 1.5rem;
+}
+
+.cross .crossbar {
+  width: 25px;
+  height: 3px;
+  background: var(--text);
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
 
 /* ===== MOBILE ===== */
 @media (max-width: 700px) {
@@ -132,6 +150,10 @@ header {
 
   .navbar-toggle {
     display: block;
+    z-index: 1100;
+  }
+  .cross {
+    display: none;
     z-index: 1100;
   }
 
